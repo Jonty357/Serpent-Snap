@@ -4,7 +4,7 @@ import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { Resend } from 'resend'
-import OrderReceivedEmail from '@/components/emails/OrderReceivedEmail'
+import OrderReceivedEmail from '@/components/emails/OrderRecievedEmail'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -53,8 +53,9 @@ export async function POST(req: Request) {
               name: session.customer_details!.name!,
               city: shippingAddress!.city!,
               country: shippingAddress!.country!,
-              postalCode: shippingAddress!.postal_code!,
+              postalCode: shippingAddress!.postal_code!, 
               street: shippingAddress!.line1!,
+              // @ts-ignore
               state: shippingAddress!.state,
             },
           },
@@ -65,6 +66,7 @@ export async function POST(req: Request) {
               country: billingAddress!.country!,
               postalCode: billingAddress!.postal_code!,
               street: billingAddress!.line1!,
+              // @ts-ignore
               state: billingAddress!.state,
             },
           },
@@ -85,6 +87,7 @@ export async function POST(req: Request) {
             country: shippingAddress!.country!,
             postalCode: shippingAddress!.postal_code!,
             street: shippingAddress!.line1!,
+            // @ts-ignore
             state: shippingAddress!.state,
           },
         }),
